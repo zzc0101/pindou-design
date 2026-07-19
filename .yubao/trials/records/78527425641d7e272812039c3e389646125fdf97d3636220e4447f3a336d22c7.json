@@ -1,0 +1,28 @@
+{
+  "_version": 1,
+  "kind": "external-project-trial-record",
+  "recordId": "99147befbc0f6b9a258a9058ab4e3ffb7ab103b9506f1121e910f66bdca6c767",
+  "recordHash": "78527425641d7e272812039c3e389646125fdf97d3636220e4447f3a336d22c7",
+  "recordedAt": "2026-07-19T07:49:41.876Z",
+  "planHash": "2043e715a9c8245943a7157b73cf7eeb32ceef37ba595a5bdd8397a698cb273c",
+  "result": "failed",
+  "summary": "已实现结果页采购清单一键复制与格式化边界测试；全量 npm test 和 npm run type-check 均因既有非本次范围问题失败。",
+  "verificationResults": [
+    {
+      "command": "npm run type-check",
+      "exitCode": 2,
+      "passed": false
+    },
+    {
+      "command": "npm test",
+      "exitCode": 1,
+      "passed": false
+    }
+  ],
+  "changedFiles": [
+    "src/pages/result/purchase-list.ts",
+    "src/pages/result/result.vue",
+    "tests/core/purchase-list.test.ts"
+  ],
+  "operatorNote": null
+}

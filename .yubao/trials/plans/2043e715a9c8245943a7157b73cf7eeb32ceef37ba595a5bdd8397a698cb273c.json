@@ -1,0 +1,33 @@
+{
+  "_version": 1,
+  "kind": "external-project-trial-plan",
+  "trialId": "2043e715a9c8245943a7157b73cf7eeb32ceef37ba595a5bdd8397a698cb273c",
+  "planHash": "2043e715a9c8245943a7157b73cf7eeb32ceef37ba595a5bdd8397a698cb273c",
+  "createdAt": "2037-02-25T06:56:21.000Z",
+  "projectLabel": "pindou-mini",
+  "objective": "让用户可以在结果页一键复制采购清单",
+  "feature": "采购清单一键复制",
+  "filesScope": [
+    "src/pages/result",
+    "tests/core"
+  ],
+  "verificationCommands": [
+    "npm run type-check",
+    "npm test"
+  ],
+  "forbiddenPaths": [
+    ".git",
+    "node_modules",
+    "package-lock.json"
+  ],
+  "handbookFactsHash": "7d31a5df4a059a6404416c2a7a564e522a8b61f7b58812b3a9a6b1537a34a914",
+  "baseline": {
+    "gitHead": null
+  },
+  "status": "planned",
+  "nextCommands": [
+    "yubao project trial record 2043e715a9c8245943a7157b73cf7eeb32ceef37ba595a5bdd8397a698cb273c --expect-plan 2043e715a9c8245943a7157b73cf7eeb32ceef37ba595a5bdd8397a698cb273c --result passed --summary <text> --yes",
+    "yubao project trial status 2043e715a9c8245943a7157b73cf7eeb32ceef37ba595a5bdd8397a698cb273c --json",
+    "yubao project trial export 2043e715a9c8245943a7157b73cf7eeb32ceef37ba595a5bdd8397a698cb273c --json"
+  ]
+}

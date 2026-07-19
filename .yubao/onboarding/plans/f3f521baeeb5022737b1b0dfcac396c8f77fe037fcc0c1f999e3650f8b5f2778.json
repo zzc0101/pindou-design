@@ -1,0 +1,43 @@
+{
+  "_version": 1,
+  "kind": "external-project-onboarding-plan",
+  "planHash": "f3f521baeeb5022737b1b0dfcac396c8f77fe037fcc0c1f999e3650f8b5f2778",
+  "factsHash": "b2c7681ac982276c5ec1da757c625b51eec36be9ac63ebd5d3b17784077706c3",
+  "input": {
+    "objective": "让用户可以在结果页一键复制采购清单",
+    "feature": "采购清单一键复制",
+    "filesScope": [
+      "src/pages/result",
+      "tests/core"
+    ],
+    "verificationCommands": [
+      "npm run type-check",
+      "npm test"
+    ],
+    "forbiddenPaths": [
+      ".git",
+      "node_modules",
+      "package-lock.json"
+    ]
+  },
+  "targetFiles": [
+    ".yubao/handbook/overview.md",
+    ".yubao/handbook/architecture.md",
+    ".yubao/handbook/code-style.md",
+    ".yubao/handbook/testing.md",
+    ".yubao/handbook/workflow.md",
+    ".yubao/handbook/constraints.md",
+    ".yubao/onboarding/receipts/f3f521baeeb5022737b1b0dfcac396c8f77fe037fcc0c1f999e3650f8b5f2778.json",
+    ".yubao/onboarding/receipts/current.json"
+  ],
+  "missingHandbook": [
+    "overview",
+    "architecture",
+    "code-style",
+    "testing",
+    "workflow",
+    "constraints"
+  ],
+  "blockers": [],
+  "canApply": true
+}

@@ -25,6 +25,7 @@ import { estimateCost, formatCost, analyzeMainColors } from '@/core/cost-estimat
 import { calcDetailedQuality } from '@/core/quality';
 import { logger } from '@/utils/logger';
 import type { BeadGrid } from '@/types/bead';
+import { buildPurchaseListItems, formatPurchaseList } from './purchase-list';
 
 const generator = useGeneratorStore();
 const palette = usePaletteStore();
@@ -36,6 +37,7 @@ const { t } = useI18n();
 const resultCanvasId = 'result-canvas';
 const exporting = ref(false);
 const saving = ref(false);
+const copyingPurchaseList = ref(false);
 
 // 手动调整状态
 const showPicker = ref(false);
@@ -346,21 +348,10 @@ const quality = computed(() => (grid.value ? calcDetailedQuality(grid.value) : n
 /** 颜色用量列表（按数量降序） */
 const colorUsage = computed(() => {
   if (!grid.value) return [];
-  const counts = grid.value.stats.colorCounts;
-  const list: Array<{ code: string; hex: string; name?: string; count: number; index: number }> = [];
-  counts.forEach((count, idx) => {
-    const entry = grid.value!.palette.entries[idx];
-    list.push({
-      code: entry.code,
-      hex: entry.hex,
-      name: entry.name,
-      count,
-      index: idx,
-    });
-  });
-  list.sort((a, b) => b.count - a.count);
-  return list;
+  return buildPurchaseListItems(grid.value.stats.colorCounts, grid.value.palette.entries);
 });
+
+const purchaseListText = computed(() => formatPurchaseList(colorUsage.value));
 
 /** 总豆子数 */
 const totalBeads = computed(() => {
@@ -418,6 +409,39 @@ function onCopyCode(code: string): void {
     data: code,
     success: () => uni.showToast({ title: `已复制 ${code}`, icon: 'none' }),
   });
+}
+
+function setClipboardText(data: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (!data || typeof uni === 'undefined' || typeof uni.setClipboardData !== 'function') {
+      reject(new Error('clipboard API unavailable'));
+      return;
+    }
+    try {
+      uni.setClipboardData({ data, success: resolve, fail: reject });
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+async function onCopyPurchaseList(): Promise<void> {
+  if (copyingPurchaseList.value) return;
+  if (!purchaseListText.value) {
+    uni.showToast({ title: '暂无可复制的采购清单', icon: 'none' });
+    return;
+  }
+
+  copyingPurchaseList.value = true;
+  try {
+    await setClipboardText(purchaseListText.value);
+    uni.showToast({ title: '采购清单已复制', icon: 'success' });
+  } catch (error) {
+    logger.error('copy purchase list failed:', error);
+    uni.showToast({ title: '复制失败，请检查剪贴板权限', icon: 'none' });
+  } finally {
+    copyingPurchaseList.value = false;
+  }
 }
 
 /** 渲染高清单图到 canvas（使用同色行合并的高性能渲染器） */
@@ -651,7 +675,13 @@ async function onSave(preGeneratedPath?: string): Promise<void> {
       <view class="usage-section">
         <view class="row-between usage-header">
           <text class="label">{{ t('result.colors') }}</text>
-          <text class="meta">{{ t('result.pickColor') }}</text>
+          <view
+            class="btn-secondary copy-list-btn"
+            :class="{ disabled: copyingPurchaseList || colorUsage.length === 0 }"
+            @tap="onCopyPurchaseList"
+          >
+            <text>{{ copyingPurchaseList ? '复制中…' : '复制采购清单' }}</text>
+          </view>
         </view>
 
         <!-- 图纸评分（多维度） -->
@@ -1125,6 +1155,13 @@ async function onSave(preGeneratedPath?: string): Promise<void> {
 }
 .usage-header {
   margin-bottom: $space-3;
+}
+.copy-list-btn {
+  padding: $space-1 $space-2;
+  font-size: $font-xs;
+  &.disabled {
+    opacity: 0.5;
+  }
 }
 .label {
   font-size: $font-sm;
