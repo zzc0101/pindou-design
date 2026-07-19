@@ -1,0 +1,82 @@
+/**
+ * 全局通用样式
+ *
+ * @author zhuzc
+ * @date 2026-06-22
+ */
+
+.container {
+  padding: $space-4;
+}
+
+.card {
+  background: $color-card;
+  border-radius: $radius-md;
+  padding: $space-4;
+  box-shadow: $shadow-sm;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.row-between {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-primary {
+  color: $color-primary;
+}
+
+.text-secondary {
+  color: $color-text-secondary;
+}
+
+.text-tertiary {
+  color: $color-text-tertiary;
+}
+
+.btn-primary {
+  background: $color-primary;
+  color: #FFFFFF;
+  border-radius: $radius-md;
+  padding: $space-3 $space-5;
+  font-size: $font-lg;
+  text-align: center;
+  &.disabled {
+    background: $color-border;
+    color: $color-text-tertiary;
+  }
+}
+
+.btn-secondary {
+  background: $color-card;
+  color: $color-text;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $space-3 $space-5;
+  font-size: $font-md;
+  text-align: center;
+}
+
+.divider {
+  height: 1px;
+  background: $color-divider;
+  margin: $space-3 0;
+}
+
+.label {
+  font-size: $font-sm;
+  color: $color-text-secondary;
+  margin-bottom: $space-2;
+}

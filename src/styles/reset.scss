@@ -1,0 +1,30 @@
+/**
+ * 全局 reset
+ *
+ * @author zhuzc
+ * @date 2026-06-22
+ */
+
+page {
+  background: $color-bg;
+  color: $color-text;
+  font-size: $font-md;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  line-height: 1.5;
+}
+
+view, text, image, button, input, scroll-view, swiper {
+  box-sizing: border-box;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  line-height: normal;
+  &::after {
+    border: none;
+  }
+}
